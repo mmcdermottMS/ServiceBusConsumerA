@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "ServiceBusConsumerA": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "httpPort": 32949,
+      "useSSL": false
+    }
+  }
+}

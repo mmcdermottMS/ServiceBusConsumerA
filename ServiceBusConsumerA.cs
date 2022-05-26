@@ -14,7 +14,7 @@ namespace ServiceBusConsumer
 {
     public class ServiceBusConsumerA
     {
-        private static readonly EventHubProducerClient _producerClient = new(Environment.GetEnvironmentVariable("EhnsConnString"), Environment.GetEnvironmentVariable("TargetEventHub"));
+        //private static readonly EventHubProducerClient _producerClient = new(Environment.GetEnvironmentVariable("EhnsConnString"), Environment.GetEnvironmentVariable("TargetEventHub"));
         private readonly TelemetryClient _telemetryClient;
 
         public ServiceBusConsumerA(TelemetryClient telemetryClient)
@@ -47,10 +47,10 @@ namespace ServiceBusConsumer
                 try
                 {
                     /******  DO WORK HERE  ******/
-                    var eventDataBatch = await _producerClient.CreateBatchAsync();
-                    eventDataBatch.TryAdd(new EventData(message.Body));
-                    await _producerClient.SendAsync(eventDataBatch);
-                    await messageActions.CompleteMessageAsync(message);
+                    //var eventDataBatch = await _producerClient.CreateBatchAsync();
+                    //eventDataBatch.TryAdd(new EventData(message.Body));
+                    //await _producerClient.SendAsync(eventDataBatch);
+                    //await messageActions.CompleteMessageAsync(message);
 
                     //Optional custom trace message
                     _telemetryClient.TrackTrace($"Subscriber {Environment.GetEnvironmentVariable("SubscriberName")} processed message: {message.Body}");
@@ -59,7 +59,7 @@ namespace ServiceBusConsumer
                 }
                 catch (Exception ex)
                 {
-                    await messageActions.AbandonMessageAsync(message);
+                    //await messageActions.AbandonMessageAsync(message);
                     log.LogError(ex, $"Error consuming message from topic {Environment.GetEnvironmentVariable("SubscriberName")} for subscriber {Environment.GetEnvironmentVariable("SubscriberName")}");
                     
                     //For any given failure, track the exception with the TelemetryClient and set the success flag to false.
